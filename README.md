@@ -23,8 +23,16 @@ Enda skillnaden är att Viewsen har en lista som motsvarar;
  - för en utgift de associerade kategorierna, och
  - för en kategori de associerade utgifterna.
 
-### ExpenseDal
-Stor klass för att hålla reda på tre tabeller, skriven med ADO.NET. här finns alla CRUD operationer för de två tabellerna, detta objektet föjer repository-mönstret.
+### IExpenseDal
+Ett interface som håller reda på tre tabeller och översätter till vår app. I de konkreta implementationerna finns alla CRUD operationer för de två tabellerna, detta objektet föjer repository-mönstret.
+
+Det finns två konkreta versioner:
+
+## ExpenseDal
+Stor klass för att hålla reda på tre tabeller, skriven med ADO.NET. 
+
+## ExpenseDapperDal
+Göra samma sak fast med dapper
 
 ## Använding
 
