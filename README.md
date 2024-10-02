@@ -14,12 +14,14 @@ i Models finns "entity" klasser som är baserade på tabellerna i databasen:
  - Category.cs
  - Expense.cs
  - CategoryOfExpense.cs
-och även "Views" som ärver av entity-klasserna
+
+Och "Views" som ärver av entity-klasserna
 - ExpenseView.cs
 - CategoryView.cs
+  
 Enda skillnaden är att Viewsen har en lista som motsvarar;
-    - för en utgift de associerade kategorierna, och 
-    - för en kategori de associerade utgifterna.
+ - för en utgift de associerade kategorierna, och
+ - för en kategori de associerade utgifterna.
 
 ### ExpenseDal
 Stor klass för att hålla reda på tre tabeller, skriven med ADO.NET. här finns alla CRUD operationer för de två tabellerna, detta objektet föjer repository-mönstret.
