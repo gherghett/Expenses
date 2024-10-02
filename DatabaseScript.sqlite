@@ -1,0 +1,46 @@
+
+-- Create Category table
+CREATE TABLE Category (
+  Id INTEGER PRIMARY KEY AUTOINCREMENT,
+  Name VARCHAR(50)
+);
+
+-- Create Expense table
+CREATE TABLE Expense (
+  Id INTEGER PRIMARY KEY AUTOINCREMENT,
+  Name VARCHAR(50) NOT NULL,
+  Description TEXT,
+  Date TEXT NOT NULL
+);
+
+-- Create CategoryOfExpense junction table with foreign key constraints
+CREATE TABLE CategoryOfExpense (
+  Id INTEGER PRIMARY KEY AUTOINCREMENT,
+  CategoryId INTEGER NOT NULL,
+  ExpenseId INTEGER NOT NULL,
+  FOREIGN KEY (CategoryId) REFERENCES Category(Id),
+  FOREIGN KEY (ExpenseId) REFERENCES Expense(Id)
+);
+
+
+-- insert
+INSERT INTO Category (Name) VALUES ('Food'), ('Groceries'), ('Unnecessary'), ('Computer');
+INSERT INTO Expense (Name, Description, Date) 
+  VALUES ('Gaming PC', 'Really cool computer', '2024-10-01 00:12:00');
+INSERT INTO CategoryOfExpense (CategoryId, ExpenseId) VALUES (3, 1);
+INSERT INTO CategoryOfExpense (CategoryId, ExpenseId) VALUES (4, 1);
+
+
+
+-- fetch 
+SELECT Expense.Id, Expense.Name, Category.Name
+FROM Expense, CategoryOfExpense, Category
+WHERE ExpenseId = Expense.Id AND  CategoryId = Category.Id;
+
+SELECT e.Id, e.Name AS ExpenseName, 
+       GROUP_CONCAT(c.Name, ', ') AS Categories
+FROM CategoryOfExpense ce
+INNER JOIN Expense e ON ce.ExpenseId = e.Id
+INNER JOIN Category c ON ce.CategoryId = c.Id
+GROUP BY e.Id, e.Name;
+
