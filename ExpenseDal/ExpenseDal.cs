@@ -4,7 +4,7 @@ using System.Data;
 using Expenses.Models;
 
 namespace Expenses;
-public partial class ExpenseDal
+public partial class ExpenseDal : IExpenseDal
 {
     //private SqliteConnection? _sqlConnection = null;
     private readonly string _connectionString;
