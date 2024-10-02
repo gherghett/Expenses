@@ -79,4 +79,31 @@ public partial class ExpenseDal
         reader.Close();
         return categories;
     }
+
+    public List<CategoryView> GetAllCategoryViews()
+    {
+        List<CategoryView> categoryViews = new List<CategoryView>();
+        List<Category> categories = GetAllCategories();
+        List<ExpenseView> expenseViews = GetAllExpenses();
+        var catsOfExps = GetAllCategoryOfExpense();
+
+        foreach(var category in categories)
+        {
+            categoryViews.Add(
+                new CategoryView{
+                    Id = category.Id,
+                    Name = category.Name,
+                    Expenses = expenseViews
+                            .Where(exp => catsOfExps
+                                .Where(coe => coe.CategoryId == category.Id)
+                                .Select(coe => coe.ExpenseId)
+                                .Contains(exp.Id)
+                            )
+                            .ToList()
+                }
+            );
+        }
+
+        return categoryViews;
+    }
 }
